@@ -1,5 +1,6 @@
+
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Home, Info, BookOpen, Bell, Calendar, Image, Mail, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sidebar, SidebarContent } from "./ui/sidebar";
 import { RefObject, useEffect, useState } from "react";
