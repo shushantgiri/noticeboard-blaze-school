@@ -4,7 +4,6 @@ import { Home, Info, BookOpen, Bell, Calendar, Image, Mail, Menu, X } from "luci
 import { Button } from "./ui/button";
 import { Sidebar, SidebarContent } from "./ui/sidebar";
 import { RefObject, useEffect, useState } from "react";
-import { useToast } from "@/hooks/use-toast";
 
 interface NavigationProps {
   activeSection: string;
@@ -51,7 +50,7 @@ export function Navigation({ activeSection, sectionRefs }: NavigationProps) {
         variant="ghost"
         size="icon"
         className={cn(
-          "fixed top-4 left-4 z-50 transition-transform duration-300",
+          "fixed top-4 left-4 z-[100] transition-transform duration-300",
           isNavVisible ? "translate-x-64 rotate-90" : "translate-x-0 rotate-0"
         )}
         onClick={() => setIsNavVisible(!isNavVisible)}
@@ -64,7 +63,7 @@ export function Navigation({ activeSection, sectionRefs }: NavigationProps) {
       </Button>
 
       <Sidebar className={cn(
-        "transition-transform duration-300",
+        "fixed left-0 top-0 z-[99] transition-transform duration-300 h-screen bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
         !isNavVisible && "-translate-x-full"
       )}>
         <SidebarContent className="p-4">
