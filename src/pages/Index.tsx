@@ -1,4 +1,3 @@
-
 import { useRef, useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { AddNoticeDialog } from "@/components/AddNoticeDialog";
@@ -15,6 +14,7 @@ import { Events } from "@/components/Events";
 import { Gallery } from "@/components/Gallery";
 import { Contact } from "@/components/Contact";
 import { BackToTop } from "@/components/BackToTop";
+import { Footer } from "@/components/Footer";
 
 export default function Index() {
   const { notices, updateNotice, deleteNotice } = useNotices();
@@ -144,6 +144,9 @@ export default function Index() {
         <div ref={contactRef} id="contact" className="min-h-screen">
           <Contact />
         </div>
+        
+        {/* Add Footer */}
+        <Footer />
         
         <BackToTop />
       </main>
