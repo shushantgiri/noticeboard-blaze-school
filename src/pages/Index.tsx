@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { useNotices } from "@/context/NoticeContext";
@@ -6,9 +7,8 @@ import { About } from "@/components/About";
 import { NoticesSection } from "@/components/NoticesSection";
 import { Events } from "@/components/Events";
 import { Gallery } from "@/components/Gallery";
-import { Contact } from "@/components/Contact";
-import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
+import { BackToTop } from "@/components/BackToTop";
 
 export default function Index() {
   const { notices } = useNotices();
@@ -18,7 +18,6 @@ export default function Index() {
   const noticesRef = useRef<HTMLDivElement>(null);
   const eventsRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
   
   const [activeSection, setActiveSection] = useState("home");
   const [scrollY, setScrollY] = useState(0);
@@ -28,15 +27,13 @@ export default function Index() {
       const scrollPosition = window.scrollY;
       setScrollY(scrollPosition);
       
-      // Update active section for nav highlighting
       const offset = 200;
       const sections = [
         { id: "home", ref: homeRef },
         { id: "about", ref: aboutRef },
         { id: "notices", ref: noticesRef },
         { id: "events", ref: eventsRef },
-        { id: "gallery", ref: galleryRef },
-        { id: "contact", ref: contactRef }
+        { id: "gallery", ref: galleryRef }
       ];
       
       for (const section of sections) {
@@ -63,8 +60,7 @@ export default function Index() {
     about: aboutRef,
     notices: noticesRef,
     events: eventsRef,
-    gallery: galleryRef,
-    contact: contactRef
+    gallery: galleryRef
   };
 
   return (
@@ -102,25 +98,8 @@ export default function Index() {
           </div>
         </div>
         
-        <div ref={galleryRef} id="gallery" className="relative min-h-screen bg-gradient-to-b from-secondary/10 to-background">
+        <div ref={galleryRef} id="gallery" className="relative py-20 bg-gradient-to-b from-secondary/10 to-background">
           <Gallery />
-        </div>
-        
-        <div ref={contactRef} id="contact" className="relative min-h-screen bg-gradient-to-tr from-primary/5 to-background">
-          <Contact />
-        </div>
-        
-        <div className="fixed bottom-4 left-4 z-40">
-          <div className="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:shadow-xl transition-all">
-            <a href="https://m.me/your-page" target="_blank" rel="noopener noreferrer" className="block">
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                  <path d="M14 22c5.523 0 10-4.477 10-10S19.523 2 14 2 4 6.477 4 12s4.477 10 10 10z"></path>
-                  <path d="m7 15 5-3-1 7 6-4-1-4 4 1"></path>
-                </svg>
-              </div>
-            </a>
-          </div>
         </div>
         
         <Footer />

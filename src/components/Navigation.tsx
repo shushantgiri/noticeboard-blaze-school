@@ -17,7 +17,6 @@ const navItems = [
   { icon: Bell, label: "News", id: "notices" },
   { icon: Calendar, label: "Events", id: "events" },
   { icon: Image, label: "Gallery", id: "gallery" },
-  { icon: Mail, label: "Contact", id: "contact" },
 ];
 
 export function Navigation({ activeSection, sectionRefs }: NavigationProps) {
