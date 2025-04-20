@@ -1,6 +1,5 @@
-
 import { cn } from "@/lib/utils";
-import { Home, Info, BookOpen, Bell, Calendar, Image, Mail, Menu, X } from "lucide-react";
+import { Home, Info, Bell, Calendar, Image, Mail, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sidebar, SidebarContent } from "./ui/sidebar";
 import { RefObject, useEffect, useState } from "react";
@@ -15,8 +14,7 @@ interface NavigationProps {
 const navItems = [
   { icon: Home, label: "Home", id: "home" },
   { icon: Info, label: "About", id: "about" },
-  { icon: BookOpen, label: "Courses", id: "courses" },
-  { icon: Bell, label: "Notices", id: "notices" },
+  { icon: Bell, label: "News", id: "notices" },
   { icon: Calendar, label: "Events", id: "events" },
   { icon: Image, label: "Gallery", id: "gallery" },
   { icon: Mail, label: "Contact", id: "contact" },

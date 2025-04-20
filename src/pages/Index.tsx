@@ -1,10 +1,8 @@
-
 import { useRef, useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { useNotices } from "@/context/NoticeContext";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
-import { Courses } from "@/components/Courses";
 import { NoticesSection } from "@/components/NoticesSection";
 import { Events } from "@/components/Events";
 import { Gallery } from "@/components/Gallery";
@@ -17,7 +15,6 @@ export default function Index() {
   
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const coursesRef = useRef<HTMLDivElement>(null);
   const noticesRef = useRef<HTMLDivElement>(null);
   const eventsRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -36,7 +33,6 @@ export default function Index() {
       const sections = [
         { id: "home", ref: homeRef },
         { id: "about", ref: aboutRef },
-        { id: "courses", ref: coursesRef },
         { id: "notices", ref: noticesRef },
         { id: "events", ref: eventsRef },
         { id: "gallery", ref: galleryRef },
@@ -65,7 +61,6 @@ export default function Index() {
   const sectionRefs = {
     home: homeRef,
     about: aboutRef,
-    courses: coursesRef,
     notices: noticesRef,
     events: eventsRef,
     gallery: galleryRef,
@@ -77,79 +72,45 @@ export default function Index() {
       <Navigation activeSection={activeSection} sectionRefs={sectionRefs} />
       
       <main className="relative z-10 w-full">
-        <div 
-          ref={homeRef} 
-          id="home" 
-          className="min-h-screen"
-          style={{ 
-            transform: `translateY(${scrollY * 0.1}px)`,
-            transition: 'transform 0.1s ease-out'
-          }}
-        >
+        <div ref={homeRef} id="home" className="min-h-screen">
           <Hero />
         </div>
         
-        <div 
-          ref={aboutRef} 
-          id="about" 
-          className="relative min-h-screen bg-gradient-to-b from-secondary/5 to-background"
-        >
+        <div ref={aboutRef} id="about" className="relative min-h-screen bg-gradient-to-b from-secondary/5 to-background">
           <div className="absolute inset-0 bg-[url('/pattern-bg.png')] bg-repeat opacity-5"></div>
           <About />
         </div>
         
-        <div 
-          ref={coursesRef} 
-          id="courses" 
-          className="relative min-h-screen"
-          style={{ 
-            backgroundPosition: `50% ${50 + scrollY * 0.02}%`
-          }}
-        >
-          <Courses />
+        <div ref={noticesRef} id="notices" className="relative min-h-screen">
+          <div className="container mx-auto px-6 py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* News Section - Left Side */}
+              <div className="lg:col-span-7">
+                <NoticesSection 
+                  notices={notices}
+                  onEdit={() => {}}
+                  onDelete={() => {}}
+                  onToggleImportant={() => {}}
+                />
+              </div>
+              
+              {/* Events Section - Right Side */}
+              <div className="lg:col-span-5">
+                <Events />
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div 
-          ref={noticesRef} 
-          id="notices" 
-          className="relative min-h-screen bg-gradient-to-r from-secondary/20 to-background"
-        >
-          <NoticesSection 
-            notices={notices}
-            onEdit={() => {}}
-            onDelete={() => {}}
-            onToggleImportant={() => {}}
-          />
-        </div>
-        
-        <div 
-          ref={eventsRef} 
-          id="events" 
-          className="relative min-h-screen"
-          style={{ 
-            backgroundPosition: `50% ${50 + scrollY * 0.01}%` 
-          }}
-        >
-          <Events />
-        </div>
-        
-        <div 
-          ref={galleryRef} 
-          id="gallery" 
-          className="relative min-h-screen bg-gradient-to-b from-secondary/10 to-background"
-        >
+        <div ref={galleryRef} id="gallery" className="relative min-h-screen bg-gradient-to-b from-secondary/10 to-background">
           <Gallery />
         </div>
         
-        <div 
-          ref={contactRef} 
-          id="contact" 
-          className="relative min-h-screen bg-gradient-to-tr from-primary/5 to-background"
-        >
+        <div ref={contactRef} id="contact" className="relative min-h-screen bg-gradient-to-tr from-primary/5 to-background">
           <Contact />
         </div>
         
-        <div className="fixed bottom-4 right-4 z-40">
+        <div className="fixed bottom-4 left-4 z-40">
           <div className="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:shadow-xl transition-all">
             <a href="https://m.me/your-page" target="_blank" rel="noopener noreferrer" className="block">
               <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-md">
@@ -163,7 +124,6 @@ export default function Index() {
         </div>
         
         <Footer />
-        
         <BackToTop />
       </main>
     </div>
