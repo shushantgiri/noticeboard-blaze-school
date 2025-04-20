@@ -1,11 +1,7 @@
+
 import { useRef, useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
-import { AddNoticeDialog } from "@/components/AddNoticeDialog";
-import { EditNoticeDialog } from "@/components/EditNoticeDialog";
-import { NoticeCard } from "@/components/NoticeCard";
 import { useNotices } from "@/context/NoticeContext";
-import { Notice } from "@/types/notice";
-import { useToast } from "../components/ui/use-toast";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Courses } from "@/components/Courses";
@@ -17,9 +13,7 @@ import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 
 export default function Index() {
-  const { notices, updateNotice, deleteNotice } = useNotices();
-  const [editingNotice, setEditingNotice] = useState<Notice | null>(null);
-  const { toast } = useToast();
+  const { notices } = useNotices();
   
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -63,30 +57,6 @@ export default function Index() {
     
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleDelete = (id: string) => {
-    deleteNotice(id);
-    toast({
-      title: "Notice Deleted",
-      description: "The notice has been successfully deleted.",
-    });
-  };
-
-  const handleEdit = (notice: Notice) => {
-    setEditingNotice(notice);
-  };
-
-  const handleSaveEdit = (id: string, updatedFields: Partial<Notice>) => {
-    updateNotice(id, updatedFields);
-    toast({
-      title: "Notice Updated",
-      description: "The notice has been successfully updated.",
-    });
-  };
-
-  const handleToggleImportant = (notice: Notice) => {
-    updateNotice(notice.id, { important: !notice.important });
-  };
   
   const sectionRefs = {
     home: homeRef,
@@ -99,9 +69,9 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen flex w-full">
+    <div className="relative min-h-screen w-full overflow-hidden">
       <Navigation activeSection={activeSection} sectionRefs={sectionRefs} />
-      <main className="flex-1 overflow-x-hidden">
+      <main className="relative z-10 w-full">
         <div ref={homeRef} id="home" className="min-h-screen">
           <Hero />
         </div>
@@ -117,9 +87,9 @@ export default function Index() {
         <div ref={noticesRef} id="notices" className="min-h-screen bg-secondary/20">
           <NoticesSection 
             notices={notices}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            onToggleImportant={handleToggleImportant}
+            onEdit={() => {}}
+            onDelete={() => {}}
+            onToggleImportant={() => {}}
           />
         </div>
         
@@ -139,15 +109,6 @@ export default function Index() {
         
         <BackToTop />
       </main>
-
-      {editingNotice && (
-        <EditNoticeDialog
-          notice={editingNotice}
-          open={true}
-          onOpenChange={(open) => !open && setEditingNotice(null)}
-          onSave={(updates) => handleSaveEdit(editingNotice.id, updates)}
-        />
-      )}
     </div>
   );
 }
