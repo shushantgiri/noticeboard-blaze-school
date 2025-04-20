@@ -24,11 +24,15 @@ export default function Index() {
   const contactRef = useRef<HTMLDivElement>(null);
   
   const [activeSection, setActiveSection] = useState("home");
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY;
+      setScrollY(scrollPosition);
       
+      // Update active section for nav highlighting
+      const offset = 200;
       const sections = [
         { id: "home", ref: homeRef },
         { id: "about", ref: aboutRef },
@@ -45,7 +49,7 @@ export default function Index() {
         const offsetTop = section.ref.current.offsetTop;
         const offsetHeight = section.ref.current.offsetHeight;
         
-        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+        if (scrollPosition + offset >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
           setActiveSection(section.id);
           break;
         }
@@ -71,20 +75,45 @@ export default function Index() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       <Navigation activeSection={activeSection} sectionRefs={sectionRefs} />
+      
       <main className="relative z-10 w-full">
-        <div ref={homeRef} id="home" className="min-h-screen">
+        <div 
+          ref={homeRef} 
+          id="home" 
+          className="min-h-screen"
+          style={{ 
+            transform: `translateY(${scrollY * 0.1}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        >
           <Hero />
         </div>
         
-        <div ref={aboutRef} id="about" className="min-h-screen bg-secondary/20">
+        <div 
+          ref={aboutRef} 
+          id="about" 
+          className="relative min-h-screen bg-gradient-to-b from-secondary/5 to-background"
+        >
+          <div className="absolute inset-0 bg-[url('/pattern-bg.png')] bg-repeat opacity-5"></div>
           <About />
         </div>
         
-        <div ref={coursesRef} id="courses" className="min-h-screen">
+        <div 
+          ref={coursesRef} 
+          id="courses" 
+          className="relative min-h-screen"
+          style={{ 
+            backgroundPosition: `50% ${50 + scrollY * 0.02}%`
+          }}
+        >
           <Courses />
         </div>
         
-        <div ref={noticesRef} id="notices" className="min-h-screen bg-secondary/20">
+        <div 
+          ref={noticesRef} 
+          id="notices" 
+          className="relative min-h-screen bg-gradient-to-r from-secondary/20 to-background"
+        >
           <NoticesSection 
             notices={notices}
             onEdit={() => {}}
@@ -93,16 +122,44 @@ export default function Index() {
           />
         </div>
         
-        <div ref={eventsRef} id="events" className="min-h-screen">
+        <div 
+          ref={eventsRef} 
+          id="events" 
+          className="relative min-h-screen"
+          style={{ 
+            backgroundPosition: `50% ${50 + scrollY * 0.01}%` 
+          }}
+        >
           <Events />
         </div>
         
-        <div ref={galleryRef} id="gallery" className="min-h-screen bg-secondary/20">
+        <div 
+          ref={galleryRef} 
+          id="gallery" 
+          className="relative min-h-screen bg-gradient-to-b from-secondary/10 to-background"
+        >
           <Gallery />
         </div>
         
-        <div ref={contactRef} id="contact" className="min-h-screen">
+        <div 
+          ref={contactRef} 
+          id="contact" 
+          className="relative min-h-screen bg-gradient-to-tr from-primary/5 to-background"
+        >
           <Contact />
+        </div>
+        
+        <div className="fixed bottom-4 right-4 z-40">
+          <div className="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:shadow-xl transition-all">
+            <a href="https://m.me/your-page" target="_blank" rel="noopener noreferrer" className="block">
+              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                  <path d="M14 22c5.523 0 10-4.477 10-10S19.523 2 14 2 4 6.477 4 12s4.477 10 10 10z"></path>
+                  <path d="m7 15 5-3-1 7 6-4-1-4 4 1"></path>
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
         
         <Footer />

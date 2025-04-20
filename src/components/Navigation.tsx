@@ -50,7 +50,7 @@ export function Navigation({ activeSection, sectionRefs }: NavigationProps) {
         variant="ghost"
         size="icon"
         className={cn(
-          "fixed top-4 left-4 z-[200] transition-transform duration-300",
+          "fixed top-4 left-4 z-[200] transition-transform duration-300 bg-background/80 backdrop-blur-sm",
           isNavVisible ? "translate-x-64 rotate-90" : "translate-x-0 rotate-0"
         )}
         onClick={() => setIsNavVisible(!isNavVisible)}
@@ -64,13 +64,13 @@ export function Navigation({ activeSection, sectionRefs }: NavigationProps) {
 
       <Sidebar 
         className={cn(
-          "fixed left-0 top-0 z-[199] transition-transform duration-300 h-screen bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+          "fixed left-0 top-0 z-[199] transition-transform duration-300 h-screen bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-r border-r-secondary/30 shadow-lg",
           !isNavVisible && "-translate-x-full"
         )}
       >
-        <SidebarContent className="p-4">
-          <div className="mb-8">
-            <h1 className="font-bold text-xl text-primary">School of STEAM</h1>
+        <SidebarContent className="p-6">
+          <div className="mb-10">
+            <h1 className="font-bold text-2xl text-primary mb-1">School of STEAM</h1>
             <p className="text-xs text-muted-foreground">Sundabari, Lamahi, Dang</p>
           </div>
           <nav className={cn(
@@ -82,13 +82,15 @@ export function Navigation({ activeSection, sectionRefs }: NavigationProps) {
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={cn(
-                  "flex w-full items-center gap-3 px-3 py-2 rounded-md transition-colors",
-                  "hover:bg-secondary",
-                  activeSection === item.id && "bg-primary text-primary-foreground hover:bg-primary/90"
+                  "flex w-full items-center gap-3 px-4 py-3 rounded-md transition-all",
+                  "hover:bg-secondary/60 hover:translate-x-1",
+                  activeSection === item.id 
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md" 
+                    : "hover:text-primary"
                 )}
               >
                 <item.icon className="h-5 w-5" />
-                <span>{item.label}</span>
+                <span className="font-medium">{item.label}</span>
               </button>
             ))}
           </nav>
