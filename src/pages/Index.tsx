@@ -21,7 +21,6 @@ export default function Index() {
   const [editingNotice, setEditingNotice] = useState<Notice | null>(null);
   const { toast } = useToast();
   
-  // Refs for scroll sections
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const coursesRef = useRef<HTMLDivElement>(null);
@@ -32,10 +31,9 @@ export default function Index() {
   
   const [activeSection, setActiveSection] = useState("home");
 
-  // Handle scroll to highlight active section in navigation
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200; // Offset for better highlighting
+      const scrollPosition = window.scrollY + 200;
       
       const sections = [
         { id: "home", ref: homeRef },
@@ -61,7 +59,7 @@ export default function Index() {
     };
     
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
     
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -90,7 +88,6 @@ export default function Index() {
     updateNotice(notice.id, { important: !notice.important });
   };
   
-  // Create refs map for navigation
   const sectionRefs = {
     home: homeRef,
     about: aboutRef,
@@ -105,22 +102,18 @@ export default function Index() {
     <div className="min-h-screen flex w-full">
       <Navigation activeSection={activeSection} sectionRefs={sectionRefs} />
       <main className="flex-1 overflow-x-hidden">
-        {/* Home Section */}
         <div ref={homeRef} id="home" className="min-h-screen">
           <Hero />
         </div>
         
-        {/* About Section */}
         <div ref={aboutRef} id="about" className="min-h-screen bg-secondary/20">
           <About />
         </div>
         
-        {/* Courses Section */}
         <div ref={coursesRef} id="courses" className="min-h-screen">
           <Courses />
         </div>
         
-        {/* Notices Section */}
         <div ref={noticesRef} id="notices" className="min-h-screen bg-secondary/20">
           <NoticesSection 
             notices={notices}
@@ -130,22 +123,18 @@ export default function Index() {
           />
         </div>
         
-        {/* Events Section */}
         <div ref={eventsRef} id="events" className="min-h-screen">
           <Events />
         </div>
         
-        {/* Gallery Section */}
         <div ref={galleryRef} id="gallery" className="min-h-screen bg-secondary/20">
           <Gallery />
         </div>
         
-        {/* Contact Section */}
         <div ref={contactRef} id="contact" className="min-h-screen">
           <Contact />
         </div>
         
-        {/* Add Footer */}
         <Footer />
         
         <BackToTop />

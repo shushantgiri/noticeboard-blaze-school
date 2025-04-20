@@ -2,7 +2,6 @@
 import React from 'react';
 import { Notice } from '@/types/notice';
 import { NoticeCard } from './NoticeCard';
-import { AddNoticeDialog } from './AddNoticeDialog';
 
 interface NoticesSectionProps {
   notices: Notice[];
@@ -14,12 +13,9 @@ interface NoticesSectionProps {
 export function NoticesSection({ notices, onEdit, onDelete, onToggleImportant }: NoticesSectionProps) {
   return (
     <div className="container mx-auto px-6 py-20">
-      <div className="flex items-center justify-between mb-12">
-        <div>
-          <h2 className="text-4xl font-bold text-primary mb-4">School Notices</h2>
-          <div className="w-20 h-1 bg-accent"></div>
-        </div>
-        <AddNoticeDialog />
+      <div className="mb-12">
+        <h2 className="text-4xl font-bold text-primary mb-4">School Notices</h2>
+        <div className="w-20 h-1 bg-accent"></div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -37,8 +33,7 @@ export function NoticesSection({ notices, onEdit, onDelete, onToggleImportant }:
           <div className="col-span-full text-center py-16 bg-white rounded-lg shadow">
             <div className="text-5xl mb-4">📢</div>
             <h3 className="text-xl font-semibold text-gray-700 mb-2">No notices yet</h3>
-            <p className="text-gray-500 mb-6">Be the first to add an important school notice!</p>
-            <AddNoticeDialog />
+            <p className="text-gray-500">School notices will appear here when posted by administrators.</p>
           </div>
         )}
       </div>
